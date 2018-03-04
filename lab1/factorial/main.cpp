@@ -1,7 +1,9 @@
-#include <iostream>
+
 #include "Factorial.h"
 
 int main() {
-  std::cout << "factorial of 20 is: " << factorial(20) << std::endl;
+  int n=20;
+  std::cout << "factorial of 20 is: " << factorial(n) << factorialIT(n)<< std::endl;
+  std::cout << std::endl << reverse("kot");
   return 0;
 }
