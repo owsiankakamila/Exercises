@@ -1,10 +1,14 @@
 //
-// Created by owsikami on 02.03.18.
+// Created by kamila on 04.03.18.
 //
 
 #include "ReverseString.h"
 
 int main() {
-    std::cout << std::endl << reverse("kot");
+    std::string str;
+
+    std::cin >> str;
+    std::cout << reverse(str);
     return 0;
 }
+
