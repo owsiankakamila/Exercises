@@ -6,11 +6,8 @@
 #define JIMP_EXERCISES_PALINDROME_H
 
 
-
-class Palindrome {
-
-};
-
+#include <iostream>
+bool is_palindrome(std::string str);
 
 
 #endif //JIMP_EXERCISES_PALINDROME_H
