@@ -6,7 +6,7 @@
 #define JIMP_EXERCISES_FACTORIAL_H
 
 #include <iostream>
-int factorial(int value);
+int Factorial(int value);
 int factorialIT(int value);
 
 

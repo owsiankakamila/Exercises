@@ -5,7 +5,7 @@
 #include "Palindrome.h"
 using namespace std;
 
-bool is_palindrome(std::string str);
+bool IsPalindrome(std::string str);
 
 int main() {
     int choice;
@@ -25,7 +25,7 @@ int main() {
                 cin >> word;
 
 
-                if(is_palindrome(word)) cout<<"Tak. To palindrom!"<<endl;
+                if(IsPalindrome(word)) cout<<"Tak. To palindrom!"<<endl;
                 else cout<<"Nie. To nie jest palindrom!"<<endl;
             }
                 break;

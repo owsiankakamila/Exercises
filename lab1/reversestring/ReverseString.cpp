@@ -5,7 +5,7 @@
 #include "ReverseString.h"
 
 
-std::string reverse(std::string str){
+std::string Reverse(std::string str){
     if (str[0]=='\0') return str;
-    return reverse(&str[1])+str[0];
+    return Reverse(&str[1])+str[0];
 }

@@ -8,7 +8,7 @@ int main() {
     std::string str;
 
     std::cin >> str;
-    std::cout << reverse(str);
+    std::cout << Reverse(str);
     return 0;
 }
 
