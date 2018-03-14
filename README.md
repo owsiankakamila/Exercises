@@ -1,6 +1,6 @@
 ### C++ programming classes problmes ###
 
-[![Build Status](https://travis-ci.org/micwypych/cpp-exercises.svg?branch=master)](https://travis-ci.org/micwypych/cpp-exercises)
+[![Build Status](https://travis-ci.org/owsiankakamila/Exercises.svg?branch=master)](https://travis-ci.org/micwypych/cpp-exercises)
 
 #### CLion CMakeLists.txt template ####
 
