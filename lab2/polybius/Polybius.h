@@ -11,6 +11,7 @@
 
 
 
+
 std::string PolybiusCrypt(std::string message);
 std::string PolybiusDecrypt(std::string crypted);
 std::string PrepareString(std::string message);
