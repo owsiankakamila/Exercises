@@ -28,7 +28,7 @@ int main(int argc, char* argv[]){
         std::cout << "Nie można otworzyć pliku!" << std::endl;
     }
 
-    
+
     while(!in_file.eof()){
         getline(in_file,line);
         if (argv[3]=="0"){
