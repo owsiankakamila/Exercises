@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <memory>
+#include <map>
 
 namespace datastructures{
 
@@ -22,6 +23,7 @@ namespace datastructures{
     void PrintTreeInOrder(const std::unique_ptr<SmartTree> &unique_ptr, std::ostream *out);
     std::string DumpTree(const std::unique_ptr<SmartTree> &tree);
     std::unique_ptr <SmartTree> RestoreTree(const std::string &tree);
+    std::unique_ptr <SmartTree> HelpRestoreTree(const std::string &tree, int* pint);
 }
 
 

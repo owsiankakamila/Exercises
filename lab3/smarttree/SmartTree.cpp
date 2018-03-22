@@ -4,7 +4,9 @@
 #include <memory>
 #include <string>
 #include <ostream>
+#include <map>
 #include "SmartTree.h"
+
 
 
 using std::make_unique;
@@ -79,7 +81,126 @@ std::string datastructures::DumpTree
     return str;
 }
 
+
+
 std::unique_ptr <datastructures::SmartTree> datastructures::RestoreTree
+        (const std::string &tree) {
+    int i = 0;
+    std::string val;
+    int value;
+    std::unique_ptr<SmartTree> ptr;
+
+    if (tree[i] == '[') {
+        i++;
+        while (tree[i] != '[' && tree[i] != ' ') {
+            val += tree[i];
+            i++;
+        }
+        if (val != "none") {
+            value = std::stoi(val);
+            ptr = CreateLeaf(value);
+        }
+    }
+
+    if (tree[i] == ' ') {
+        i++;
+        ptr->left = RestoreTree(&tree[i]);
+
+        if (ptr->left == nullptr) {
+            ptr->right = RestoreTree(&tree[i]);
+        }
+    }
+
+    if (tree[i] == ']') {
+        i++;
+        return ptr;
+    }
+}
+
+
+
+
+
+
+
+
+std::unique_ptr <datastructures::SmartTree> TESTRestoreTree
         (const std::string &tree){
 
+    using namespace datastructures;
+    int i =0;
+    int jump =0;
+    std::string val;
+    int value;
+    std::unique_ptr <SmartTree> *ptr = nullptr;
+    std::unique_ptr <SmartTree> root;
+
+    //create root of tree
+    if (tree[i]=='['){
+        i++;
+        while (tree[i] != '[' || tree[i] != ' '){
+            val+= tree[i];
+            i++;
+        }
+        if (val != "none"){
+            value = std::stoi( val );
+            root = CreateLeaf(value);
+            ptr=&(root->left);
+            jump++;
+            val.clear();
+        }
+    }
+
+
+    while (i<tree.size()){
+
+        if (tree[i]==' '){
+
+            while(tree[i]!=']'){
+                i++; //' '
+                i++; //'['
+                while (tree[i] != '[' || tree[i] != ' '){
+                    val+= tree[i];
+                    i++;
+                }
+                if (val != "none"){
+                    value = std::stoi( val );
+                    *ptr=CreateLeaf(value);
+                    ptr = &((*ptr)->left);
+                    jump++;
+                    val.clear();
+                }
+            }
+        }
+
+        if (tree[i]==']'){
+            i++; //']'
+
+            ptr=&root;
+            jump--;
+            for (int j=1;j<=jump;j++){
+                ptr = &((*ptr)->left);
+
+            }
+
+            while(tree[i]!=']'){
+
+                i++; //' '
+                i++; //'['
+                ptr = &((*ptr)->right);
+                while (tree[i] != ']' || tree[i] != ' '){
+                    val+= tree[i];
+                    i++;
+                }
+                if (val != "none"){
+                    value = std::stoi( val );
+                    *ptr=CreateLeaf(value);
+                    ptr = &((*ptr)->left);
+                    val.clear();
+                }
+            }
+        }
+
+
+    }
 }
