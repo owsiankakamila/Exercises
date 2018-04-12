@@ -5,19 +5,21 @@
 #ifndef JIMP_EXERCISES_MATRIX_H
 #define JIMP_EXERCISES_MATRIX_H
 
+#include <complex>
 #include <vector>
 
 namespace algebra {
     class Matrix {
     public:
         // param constructor
-        Matrix (int cols, int rows);
+        Matrix (int rows, int cols);
         // default constructor
         Matrix ();
         //Matlab constructor
         Matrix (const std::string &str);
         //initializer list constructor
         Matrix (const std::initializer_list<std::vector<std::complex<double>>> &elements);
+        ~Matrix();
 
 
 
@@ -31,11 +33,11 @@ namespace algebra {
         // print
         std::string Print() const;
         //pop elemnet
-        std::complex<double> Pop(int cols, int rows)const;
+        std::complex<double> Pop(int row, int col)const;
 
 
         //set element // bool?
-        void Set(int cols, int rows, std::complex<double> val);
+        void Set(int row, int col, std::complex<double> val);
 
         // +
         Matrix Add(const Matrix &mat2)const;//?

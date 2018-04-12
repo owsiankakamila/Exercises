@@ -19,8 +19,8 @@ int main(int argc, char* argv[]){
     cout << "Dodawanie" << (m1.Add(m2)).Print() << endl;
     cout << "Odejmowanie" << (m1.Sub(m2)).Print() << endl;
     cout << "Mnożenie" << (m1.Mul(m2)).Print() << endl;
-    cout << "Dzielenie" << (m1.Div(m2)).print() << endl;
-    cout << "Potęgowanie" << (m1.Pow(2)).print() << endl;
-    cout << "Potęgowanie" << (m2.Pow(2)).print() << endl;
+    cout << "Dzielenie" << (m1.Div(m2)).Print() << endl;
+    cout << "Potęgowanie" << (m1.Pow(2)).Print() << endl;
+    cout << "Potęgowanie" << (m2.Pow(2)).Print() << endl;
 
 }
