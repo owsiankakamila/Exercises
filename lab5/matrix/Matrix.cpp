@@ -266,6 +266,38 @@ algebra::Matrix algebra::Matrix::Pow(int x) {
 }
 
 algebra::Matrix::~Matrix() {
+    for(int i=0; i<rows_;i++){
+        mat_[i].clear();
+
+    }
+    mat_.clear();
+
+
+}
+
+algebra::Matrix &algebra::Matrix::operator=(const algebra::Matrix &matrix) {
+    if (this == &matrix) {
+        return *this;
+    }
+
+    for(int i=0; i<rows_;i++){
+        mat_[i].clear();
+
+    }
+    mat_.clear();
+
+
+    std::vector<std::complex<double>> row;
+    for (int i =0; i< matrix.Size().first;i++){
+
+        for (int j =0; j< matrix.Size().second;j++){
+            row.push_back(matrix.Pop(i,j));
+        }
+
+        mat_.push_back(row);
+        row.clear();
+    }
+    return *this;
 
 }
 
