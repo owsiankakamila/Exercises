@@ -11,6 +11,7 @@
 algebra::Matrix::Matrix(int rows, int cols) {
     cols_ = cols;
     rows_ = rows;
+
 }
 
 algebra::Matrix::Matrix() {
@@ -19,16 +20,19 @@ algebra::Matrix::Matrix() {
 
 }
 
-algebra::Matrix::Matrix(const std::initializer_list<std::vector<std::complex<double>>> &elements): mat_{elements} {
+algebra::Matrix::Matrix(const std::initializer_list<std::vector<std::complex<double>>> &elements): mat_(elements) {
     // size of elements = cols_
-    cols_=mat_.size();
+    rows_=mat_.size();
     // size of elements[i] = rows_
-    rows_=elements.size();
+    cols_=mat_[0].size();
 
 }
 
 std::pair<size_t, size_t > algebra::Matrix::Size() const {
-    return {rows_,cols_};
+    std::pair<size_t, size_t> x;
+    x.first=rows_;
+    x.second=cols_;
+    return x;
 }
 
 //Matlab constr
@@ -99,8 +103,8 @@ std::string algebra::Matrix::Print() const {
 
     matlab+= '[';
 
-    for (int i=0; i<cols_; i++){
-        for(int j=0; j<rows_;j++){
+    for (int i=0; i<rows_; i++){
+        for(int j=0; j<cols_;j++){
             num = Pop(i,j);
             x=std::to_string(num.real());
             x.erase ( x.find_last_not_of('0') + 1, std::string::npos );
@@ -108,7 +112,7 @@ std::string algebra::Matrix::Print() const {
                 x.erase(x.size()-1);
             }
             y=std::to_string(num.imag());
-            x.erase ( y.find_last_not_of('0') + 1, std::string::npos );
+            y.erase ( y.find_last_not_of('0') + 1, std::string::npos );
             if(y[y.size()-1]=='.'){
                 y.erase(y.size()-1);
             }
@@ -139,6 +143,9 @@ void algebra::Matrix::Set(int row, int col, std::complex<double> val) {
 }
 
 algebra::Matrix::Matrix(const algebra::Matrix &matrix) {
+    mat_.clear();
+    rows_=matrix.Size().first;
+    cols_=matrix.Size().second;
 
 
     std::vector<std::complex<double>> row;
@@ -160,11 +167,11 @@ algebra::Matrix algebra::Matrix::Add(const algebra::Matrix &mat2) const {
         return zero;
     }
     else{
-        Matrix result (this->Size().first,this->Size().second);
+        Matrix result (rows_,cols_);
         std::vector<std::complex<double>> row;
-        for (int i =0; i< this->Size().first;i++){
+        for (int i =0; i< rows_;i++){
 
-            for (int j =0; j< this->Size().second;j++){
+            for (int j =0; j< cols_;j++){
                 row.push_back(this->Pop(i,j) + mat2.Pop(i,j));
             }
 
@@ -201,8 +208,8 @@ algebra::Matrix algebra::Matrix::Sub(const algebra::Matrix &mat2) {
 }
 
 algebra::Matrix algebra::Matrix::Mul(algebra::Matrix mat2) {
-    int this_rows = this->Size().first;
-    int this_cols = this->Size().second;
+    int this_rows = rows_;
+    int this_cols = cols_;
     int mat2_rows = mat2.Size().first;
     int mat2_cols = mat2.Size().second;
 
@@ -219,7 +226,7 @@ algebra::Matrix algebra::Matrix::Mul(algebra::Matrix mat2) {
         for(int a=0; a<this_rows;a++){
             for(int b=0; b<mat2_cols;b++){
                 for(int i=0; i<this_cols;i++){
-                    num += this->Pop(a,i)*(mat2.Pop(b,i));
+                    num += this->Pop(a,i)*(mat2.Pop(i,b));
                 }
                 row.push_back(num);
                 num=0+0i;
@@ -253,6 +260,7 @@ algebra::Matrix algebra::Matrix::Pow(int x) {
             identity.mat_.push_back(row);
             row.clear();
         }
+        return identity;
 
 
     }
@@ -261,19 +269,28 @@ algebra::Matrix algebra::Matrix::Pow(int x) {
 
     }
     else{
+        if(rows_!=cols_){
+            Matrix zero;
+            return zero;
+        }
+        Matrix result=*this;
+        for (int i =1; i<x;i++){
+            result=result.Mul(*this);
+        }
+
+        return result;
 
     }
 }
 
 algebra::Matrix::~Matrix() {
-    for(int i=0; i<rows_;i++){
-        mat_[i].clear();
+
 
     }
-    mat_.clear();
 
 
-}
+
+
 
 algebra::Matrix &algebra::Matrix::operator=(const algebra::Matrix &matrix) {
     if (this == &matrix) {
@@ -282,7 +299,6 @@ algebra::Matrix &algebra::Matrix::operator=(const algebra::Matrix &matrix) {
 
     for(int i=0; i<rows_;i++){
         mat_[i].clear();
-
     }
     mat_.clear();
 
