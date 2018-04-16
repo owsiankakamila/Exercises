@@ -8,6 +8,28 @@
 #include <iostream>
 
 namespace academia{
+    class StudyYear{
+    public:
+        StudyYear ():year_(0){}
+        StudyYear (int x):year_(x){}
+
+        StudyYear &operator++(){
+            year_+=1;
+            return *this;
+        }
+
+        StudyYear &operator--(){
+            year_-=1;
+            return *this;
+        }
+
+        std::ostream &operator<<(std::ostream &input, const StudyYear &year);
+        std::istream &operator>>(std::istream &input, StudyYear &year);
+
+
+    private:
+        int year_;
+    };
     class Student {
     public:
         Student();
@@ -45,28 +67,7 @@ namespace academia{
 
     };
     
-    class StudyYear{
-    public:
-        StudyYear ():year_(0){}
-        StudyYear (int x):year_(x){}
-        
-        StudyYear &operator++(){
-            year_+=1;
-            return *this;
-        }
 
-        StudyYear &operator--(){
-            year_-=1;
-            return *this;
-        }
-        
-        std::ostream &operator<<(std::ostream &input, StudyYear &year);
-        std::istream &operator>>(std::istream &input, StudyYear &year);
-        
-        
-    private:
-        int year_;
-    };
 }
 
 

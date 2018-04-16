@@ -4,7 +4,7 @@
 
 #include "StudentRepository.h"
 
-std::ostream &academia::StudyYear::operator<<(std::ostream &input, academia::StudyYear &year) {
+std::ostream &academia::StudyYear::operator<<(std::ostream &input, const academia::StudyYear &year) {
     input<<year_;
     return input;
     
