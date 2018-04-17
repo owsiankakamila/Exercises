@@ -73,7 +73,7 @@ namespace datastructures {
         WordCounter():index_(){};
         WordCounter (const std::initializer_list<Word> &elements);
 
-        static WordCounter FromInputStream (std::istream &input);
+        static WordCounter FromInputStream (std::istream &text);
         int DistinctWords ()const;
         int TotalWords()const;
         std::set<Word> Words()const;

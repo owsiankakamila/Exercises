@@ -75,15 +75,30 @@ std::ostream &datastructures::operator<<(std::ostream &output, const datastructu
     std::map <Word,Counts> index = counter.index_;
     //sort
 
-    //output
+    //<<
 
     return output;
 }
 
 
 
-datastructures::WordCounter datastructures::WordCounter::FromInputStream(std::istream &input) {
+datastructures::WordCounter datastructures::WordCounter::FromInputStream(std::istream &text) {
+
+    // WordCounter wc = WordCounter::FromInputStream(&is);
+
+
+
+    // leave only ' ' and letters
+
+    // save word until ' '
+        // counts =counter [word] //reference is returned.. so i can change??"
+        //  if (counts == 0 )
+            //insert
+        // else{
+            //++counts //pointer??
+
     return datastructures::WordCounter();
 }
+
 
 
