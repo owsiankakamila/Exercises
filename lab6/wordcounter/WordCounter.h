@@ -16,7 +16,9 @@ namespace datastructures {
 
     class Counts{
     public:
-        Counts(): counts_(0){}
+        Counts(){
+            counts_=0;
+        }
         Counts(int x): counts_(x){}
 
         Counts &operator++(){
@@ -65,10 +67,13 @@ namespace datastructures {
 
     class WordCounter {
     public:
+
+
+        static Counts not_found; //for operator[] , because it need reference
         WordCounter():index_(){};
         WordCounter (const std::initializer_list<Word> &elements);
 
-        static WordCounter FromInputStream (std::istream &input); //dowolny tekst
+        static WordCounter FromInputStream (std::istream &input);
         int DistinctWords ()const;
         int TotalWords()const;
         std::set<Word> Words()const;

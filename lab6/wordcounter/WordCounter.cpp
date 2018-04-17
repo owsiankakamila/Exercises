@@ -4,6 +4,7 @@
 
 #include "WordCounter.h"
 
+datastructures::Counts datastructures::WordCounter::not_found =0;
 
 
 datastructures::WordCounter::WordCounter(const std::initializer_list<datastructures::Word> &elements) {
@@ -29,10 +30,6 @@ datastructures::WordCounter::WordCounter(const std::initializer_list<datastructu
 
 }
 
-datastructures::WordCounter datastructures::WordCounter::FromInputStream(std::istream &input) {
-    return datastructures::WordCounter();
-}
-
 int datastructures::WordCounter::DistinctWords() const {
     //rozmiar kontenera
     return index_.size();
@@ -55,22 +52,8 @@ std::set<datastructures::Word> datastructures::WordCounter::Words() const {
     return words;
 }
 
-
-
-/*int &datastructures::WordCounter::operator[] (datastructures::Word word) {
-    int x = 0;
-    auto search = index_.find(word);
-
-
-    if (search != index_.end()) {
-        x = search->second;
-    }
-
-    return x;
-}*/
 datastructures::Counts &datastructures::WordCounter::operator[] (std::string word) {
 
-    Counts x;
     auto search = index_.find(word);
     // index_ to std::map <Word,Counter>
 
@@ -78,7 +61,11 @@ datastructures::Counts &datastructures::WordCounter::operator[] (std::string wor
     if (search != index_.end()) {
         return search->second;
     }
-    return x;
+    else{
+
+        return not_found;
+    }
+
 
 
 }
@@ -92,4 +79,11 @@ std::ostream &datastructures::operator<<(std::ostream &output, const datastructu
 
     return output;
 }
+
+
+
+datastructures::WordCounter datastructures::WordCounter::FromInputStream(std::istream &input) {
+    return datastructures::WordCounter();
+}
+
 
