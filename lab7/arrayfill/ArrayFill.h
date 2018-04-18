@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <random>
+#include <memory>
 
 namespace arrays{
 
@@ -61,31 +62,34 @@ namespace arrays{
 
     class RandomFill : public ArrayFill {
     public:
-        RandomFill() {}
+        RandomFill(std::unique_ptr<std::default_random_engine> generator, std::unique_ptr<std::uniform_int_distribution<int>> distribution):generator_{move(generator)}, distribution_{move(distribution)} {}
         virtual int Value(int index) const override;
     private:
-        int value_;
+        std::unique_ptr<std::default_random_engine> generator_;
+        std::unique_ptr<std::uniform_int_distribution<int>> distribution_;
+
     };
 // generator, distribiution????
 
 
     int RandomFill::Value(int index) const {
-
+    return (*distribution_)(*generator_);
     }
     //--------------------------------
 
     class SquaredFill : public ArrayFill {
     public:
-        SquaredFill(int value = 0) : value_{value} {}
+        SquaredFill(int a = 1, int b = 0) :a_{a}, b_{b} {}
         virtual int Value(int index) const override;
     private:
-        int value_;
+        int a_;
+        int b_;
     };
 
 
 
     int SquaredFill::Value(int index) const {
-        return value_;
+        return (a_*(index*index)+b_);
     }
     //--------------------------------
 

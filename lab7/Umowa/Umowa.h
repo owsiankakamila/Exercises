@@ -6,11 +6,9 @@
 #define JIMP_EXERCISES_UMOWA_H
 
 
-
 class Umowa {
 
 };
-
 
 
 #endif //JIMP_EXERCISES_UMOWA_H

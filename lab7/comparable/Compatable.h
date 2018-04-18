@@ -6,11 +6,9 @@
 #define JIMP_EXERCISES_COMPATABLE_H
 
 
-
 class Compatable {
 
 };
-
 
 
 #endif //JIMP_EXERCISES_COMPATABLE_H
