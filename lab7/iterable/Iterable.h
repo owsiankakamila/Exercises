@@ -5,8 +5,18 @@
 #ifndef JIMP_EXERCISES_ITERABLE_H
 #define JIMP_EXERCISES_ITERABLE_H
 
+#include <vector>
+#include <iostream>
+
 namespace utility{
-    class Iterable {
+    class Zipper{
+    public:
+        std::vector<int>
+
+
+    };
+    class Enumerate {
+        Enumerate(){}
 
     };
 }

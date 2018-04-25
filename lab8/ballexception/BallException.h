@@ -6,11 +6,9 @@
 #define JIMP_EXERCISES_BALLEXCEPTION_H
 
 
-
 class BallException {
 
 };
-
 
 
 #endif //JIMP_EXERCISES_BALLEXCEPTION_H

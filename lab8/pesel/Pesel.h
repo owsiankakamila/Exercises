@@ -5,11 +5,11 @@
 #ifndef JIMP_EXERCISES_PESEL_H
 #define JIMP_EXERCISES_PESEL_H
 
+namespace academia{
+    class Pesel {
 
-
-class Pesel {
-
-};
+    };
+}
 
 
 
