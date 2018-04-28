@@ -79,10 +79,12 @@ utility::IterableIteratorWrapper utility::Iterable::end() const {
 
 
 std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstBegin() const {
-    return std::make_unique<ZipperIterator>(iterator_begin_);
+    std::unique_ptr<IterableIterator> begin = std::make_unique<ZipperIterator>(iterator_begin_);
+    return begin;
 
 }
 
 std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstEnd() const {
-    return std::make_unique<ZipperIterator>(iterator_end_);
+    std::unique_ptr<IterableIterator> end = std::make_unique<ZipperIterator>(iterator_end_);
+    return end;
 }
