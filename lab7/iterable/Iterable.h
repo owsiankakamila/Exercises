@@ -52,7 +52,7 @@ namespace utility{
     };
 
 
-    class IterableIteratorWrapper{//opakowuje
+    class IterableIteratorWrapper{
     public:
 
         IterableIteratorWrapper(std::unique_ptr<IterableIterator> iterator);
@@ -64,17 +64,37 @@ namespace utility{
         std::unique_ptr<utility::IterableIterator> iterator_;
     };
 
-
-
-
-
-
-
-    class Zipper{
+    class Iterable{
     public:
+        virtual std::unique_ptr<IterableIterator> ConstBegin() const =0;
+
+        virtual std::unique_ptr<IterableIterator> ConstEnd() const =0;
+
+        IterableIteratorWrapper cbegin() const;
+        IterableIteratorWrapper cend() const;
+        IterableIteratorWrapper begin() const;
+        IterableIteratorWrapper end() const;
+
+    };
+
+
+
+
+
+
+
+    class Zipper:public Iterable{
+    public:
+        Zipper(const std::vector<int> vi,const std::vector<std::string> vs):iterator_begin_(vi.begin(),vs.begin(),vi.end(),vs.end()),iterator_end_(vi.end(),vs.end(),vi.end(),vs.end()) {};
+        virtual std::unique_ptr<IterableIterator> ConstBegin() const override ;
+
+        virtual std::unique_ptr<IterableIterator> ConstEnd() const override ;
 
 
     private:
+        ZipperIterator iterator_begin_;
+        ZipperIterator iterator_end_;
+
     };
 
 

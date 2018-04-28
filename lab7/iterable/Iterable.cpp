@@ -3,6 +3,8 @@
 //
 
 #include "Iterable.h"
+#include <memory>
+
 
 utility::ZipperIterator::ZipperIterator(std::vector<int>::const_iterator left_begin,
                                         std::vector<std::string>::const_iterator right_begin,
@@ -23,6 +25,12 @@ std::pair<int, std::string> utility::ZipperIterator::Dereference() const {
 utility::IterableIterator &utility::ZipperIterator::Next() {
     ++left_begin_;
     ++right_begin_;
+    if(left_begin_==left_end_ && right_begin_!=right_end_){
+        --left_begin_;
+    }
+    if(left_begin_!=left_end_ && right_begin_==right_end_){
+        --right_begin_;
+    }
     return *this;
 }
 
@@ -51,4 +59,30 @@ std::pair<int, std::string> utility::IterableIteratorWrapper::operator*() const 
 utility::IterableIteratorWrapper &utility::IterableIteratorWrapper::operator++() {
     iterator_->Next();
     return *this;
+}
+
+utility::IterableIteratorWrapper utility::Iterable::cbegin() const {
+    return IterableIteratorWrapper(ConstBegin());
+}
+
+utility::IterableIteratorWrapper utility::Iterable::cend() const {
+    return IterableIteratorWrapper(ConstEnd());
+}
+
+utility::IterableIteratorWrapper utility::Iterable::begin() const {
+    return cbegin();
+}
+
+utility::IterableIteratorWrapper utility::Iterable::end() const {
+    return cend();
+}
+
+
+std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstBegin() const {
+    return std::make_unique<ZipperIterator>(iterator_begin_);
+
+}
+
+std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstEnd() const {
+    return std::make_unique<ZipperIterator>(iterator_end_);
 }
