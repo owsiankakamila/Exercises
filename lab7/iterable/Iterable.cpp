@@ -37,9 +37,11 @@ utility::IterableIterator &utility::ZipperIterator::Next() {
 bool utility::ZipperIterator::NotEquals(const std::unique_ptr<utility::IterableIterator> &other)const {
     //niekoniecznie ale test ok
     if (Dereference()==other->Dereference()){
-        if (Distance()==other->Distance()){
+        if (left_begin_==other->left() && right_begin_==other->right()){
             return false;
         }
+
+
     }
     else{
         return true;
@@ -84,7 +86,6 @@ utility::IterableIteratorWrapper utility::Iterable::begin() const {
 utility::IterableIteratorWrapper utility::Iterable::end() const {
     return cend();
 }
-
 
 std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstBegin() const {
     ZipperIterator x(vi_.begin(),vs_.begin(),vi_.end(),vs_.end());

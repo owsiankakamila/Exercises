@@ -21,7 +21,8 @@ namespace utility{
         //++it
 
         virtual bool NotEquals(const std::unique_ptr<IterableIterator> &other) const=0;
-        virtual int Distance() const=0;
+        virtual std::vector<int>::const_iterator left()const = 0;
+        virtual std::vector<std::string>::const_iterator right()const = 0;
 
         ~IterableIterator ()= default;
 
@@ -41,22 +42,18 @@ namespace utility{
         virtual IterableIterator &Next() override ;
 
         virtual bool NotEquals(const std::unique_ptr<IterableIterator> &other)const override ;
-        virtual int Distance() const override {
-            int x = std::distance(left_begin_,left_end_);
-            int y = std::distance(right_begin_,right_end_);
+        virtual std::vector<int>::const_iterator left()const {
+            return left_begin_;
+        }
 
-            if (x>=y){
-                return x;
-            }
-            else{
-                return y;
-            }
+        virtual std::vector<std::string>::const_iterator right()const {
+            return right_begin_;
         }
 
         ~ZipperIterator()= default;
 
 
-    private:
+
         std::vector<int>::const_iterator left_begin_;
         std::vector<std::string>::const_iterator right_begin_;
         std::vector<int>::const_iterator left_end_;
@@ -117,6 +114,8 @@ namespace utility{
     private:
         std::vector<int> vi_;
         std::vector<std::string> vs_;
+
+
 
 
     };
