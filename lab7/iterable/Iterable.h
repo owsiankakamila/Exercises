@@ -21,6 +21,7 @@ namespace utility{
         //++it
 
         virtual bool NotEquals(const std::unique_ptr<IterableIterator> &other) const=0;
+        virtual int Distance() const=0;
 
         ~IterableIterator ()= default;
 
@@ -40,6 +41,17 @@ namespace utility{
         virtual IterableIterator &Next() override ;
 
         virtual bool NotEquals(const std::unique_ptr<IterableIterator> &other)const override ;
+        virtual int Distance() const override {
+            int x = std::distance(left_begin_,left_end_);
+            int y = std::distance(right_begin_,right_end_);
+
+            if (x>=y){
+                return x;
+            }
+            else{
+                return y;
+            }
+        }
 
         ~ZipperIterator()= default;
 
@@ -85,15 +97,27 @@ namespace utility{
 
     class Zipper:public Iterable{
     public:
-        Zipper(const std::vector<int> vi,const std::vector<std::string> vs):iterator_begin_(vi.begin(),vs.begin(),vi.end(),vs.end()),iterator_end_(vi.end(),vs.end(),vi.end(),vs.end()) {};
+        Zipper(const std::vector<int> vi,const std::vector<std::string> vs){
+            for (int i=0; i<vi.size(); i++){
+                vi_.push_back(vi[i]);
+            }
+
+
+            for (int i=0; i<vs.size(); i++){
+                vs_.push_back(vs[i]);
+            }
+
+
+        }
         virtual std::unique_ptr<IterableIterator> ConstBegin() const override ;
 
         virtual std::unique_ptr<IterableIterator> ConstEnd() const override ;
 
 
     private:
-        ZipperIterator iterator_begin_;
-        ZipperIterator iterator_end_;
+        std::vector<int> vi_;
+        std::vector<std::string> vs_;
+
 
     };
 

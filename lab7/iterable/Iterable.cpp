@@ -25,7 +25,7 @@ std::pair<int, std::string> utility::ZipperIterator::Dereference() const {
 utility::IterableIterator &utility::ZipperIterator::Next() {
     ++left_begin_;
     ++right_begin_;
-    if(left_begin_==left_end_ && right_begin_!=right_end_){
+    if(right_begin_!=right_end_ &&left_begin_==left_end_ ){
         --left_begin_;
     }
     if(left_begin_!=left_end_ && right_begin_==right_end_){
@@ -36,7 +36,15 @@ utility::IterableIterator &utility::ZipperIterator::Next() {
 
 bool utility::ZipperIterator::NotEquals(const std::unique_ptr<utility::IterableIterator> &other)const {
     //niekoniecznie ale test ok
-    return Dereference()!=other->Dereference();
+    if (Dereference()==other->Dereference()){
+        if (Distance()==other->Distance()){
+            return false;
+        }
+    }
+    else{
+        return true;
+    }
+
 
 
 
@@ -79,12 +87,14 @@ utility::IterableIteratorWrapper utility::Iterable::end() const {
 
 
 std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstBegin() const {
-    std::unique_ptr<IterableIterator> begin = std::make_unique<ZipperIterator>(iterator_begin_);
+    ZipperIterator x(vi_.begin(),vs_.begin(),vi_.end(),vs_.end());
+    std::unique_ptr<IterableIterator> begin = std::make_unique<ZipperIterator>(x);
     return begin;
 
 }
 
 std::unique_ptr<utility::IterableIterator> utility::Zipper::ConstEnd() const {
-    std::unique_ptr<IterableIterator> end = std::make_unique<ZipperIterator>(iterator_end_);
+    ZipperIterator x(vi_.end(),vs_.end(),vi_.end(),vs_.end());
+    std::unique_ptr<IterableIterator> end = std::make_unique<ZipperIterator>(x);
     return end;
 }
