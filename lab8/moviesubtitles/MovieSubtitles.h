@@ -6,12 +6,67 @@
 #define JIMP_EXERCISES_MOVIESUBTITLES_H
 
 #include <iostream>
+#include <regex>
 namespace moviesubs{
-    class MicroDvdSubtitles{
 
-        std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out);
+
+
+    class NegativeFrameAfterShift{
+    public:
 
     };
+
+    class SubtitleEndBeforeStart{
+    public:
+    };
+
+    class InvalidSubtitleLineFormat {
+    public:
+        InvalidSubtitleLineFormat();
+
+    };
+
+
+
+
+    class MovieSubtitles{
+    public:
+        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out)=0;
+
+
+    private:
+        std::regex whole_pattern;
+        std::regex line_pattern;
+        int start;
+        int stop;
+
+    };
+
+    class MicroDvdSubtitles: public MovieSubtitles{
+    public:
+        MicroDvdSubtitles(): whole_pattern{R"(((\{(\d+)\}\{(\d+)\}.+?(?=\\|$))(\\n)?)+)"}, line_pattern{R"(\{(\d+)\}\{(\d+)\}.+?(?=\\|$))"}, start(1), stop(2){}
+
+        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
+
+    private:
+        std::regex whole_pattern;
+        std::regex line_pattern;
+        int start;
+        int stop;
+
+    };
+
+    class SubRipSubtitles: public MovieSubtitles{
+    public:
+
+        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
+    };
+
+
+
+
+
+
 }
 
 
