@@ -7,11 +7,13 @@
 #include "MovieSubtitles.h"
 
 
-std::stringstream moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int mili, int framerate, std::stringstream *in,
+void moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int mili, int framerate, std::stringstream *in,
                                                                     std::stringstream *out) {
 
     //set shift
     int rate_shift = mili / (1000 / framerate);
+    std::regex whole_pattern{R"(((\{(\d+)\}\{(\d+)\}.+?(?=\\|$))(\\n)?)+)"};
+    //WRONG REGEEEEEEEX
 
     std::string s= in->str();
     std::string output;
@@ -47,21 +49,21 @@ std::stringstream moviesubs::MicroDvdSubtitles::ShiftAllSubtitlesBy(int mili, in
 
                 //int to string
 
-                
-
+                output += std::regex_replace (matched.str(0),std::regex(matched.str(start)),std::to_string(start_time));
 
 
             }
-
-
-
-
             s = matched.suffix().str();
+            line++;
         }
 
     }
 
 
+
     //to stringstream
+    out->str(output);
+
+
 
 }

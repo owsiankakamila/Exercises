@@ -22,7 +22,7 @@ namespace moviesubs{
 
     class InvalidSubtitleLineFormat {
     public:
-        InvalidSubtitleLineFormat();
+
 
     };
 
@@ -31,7 +31,7 @@ namespace moviesubs{
 
     class MovieSubtitles{
     public:
-        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out)=0;
+        virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out)=0;
 
 
     private:
@@ -46,7 +46,7 @@ namespace moviesubs{
     public:
         MicroDvdSubtitles(): whole_pattern{R"(((\{(\d+)\}\{(\d+)\}.+?(?=\\|$))(\\n)?)+)"}, line_pattern{R"(\{(\d+)\}\{(\d+)\}.+?(?=\\|$))"}, start(1), stop(2){}
 
-        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
+        virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
 
     private:
         std::regex whole_pattern;
@@ -59,7 +59,7 @@ namespace moviesubs{
     class SubRipSubtitles: public MovieSubtitles{
     public:
 
-        virtual std::stringstream ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
+        virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
     };
 
 
