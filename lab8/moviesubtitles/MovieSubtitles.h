@@ -12,32 +12,31 @@ namespace moviesubs{
 
 
     class SubtitlesException: public std::invalid_argument{
-        SubtitlesException (int line_numb, std::string content);
+    public:
 
+        SubtitlesException (std::string subtitle, int line_numb):invalid_argument(subtitle),line_(line_numb){}
+        int LineAt()const{ return line_;}
+
+        int line_;
     };
 
     class NegativeFrameAfterShift: public SubtitlesException{
     public:
+        explicit NegativeFrameAfterShift (int line_numb):SubtitlesException(" NegativeFrameAfterShift", line_numb){}
 
     };
 
     class SubtitleEndBeforeStart: public SubtitlesException{
     public:
-        SubtitleEndBeforeStart (int line_numb, std::string content){
-            line_numb_=line_numb;
-        }
-        int LineAt(){}
-
-    private:
-        int line_numb_;
-        std::string content_;
+        SubtitleEndBeforeStart ( std::string subtitle,int line_numb):SubtitlesException("At line "+ std::to_string(line_numb)+": " + subtitle, line_numb){}
 
 
     };
 
     class InvalidSubtitleLineFormat: public SubtitlesException{
     public:
-        InvalidSubtitleLineFormat (int line_numb, std::string content);
+        explicit InvalidSubtitleLineFormat ( int line_numb):SubtitlesException(" InvalidSubtitleLineFormat" , line_numb){}
+
 
 
     };

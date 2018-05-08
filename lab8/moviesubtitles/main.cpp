@@ -11,10 +11,9 @@ int main(){
     std::regex whole_pattern(R"((\{(\d+)\}\{(\d+)\}.*\n?)+)");
     std::regex line_pattern(R"(\{(\d+)\}\{(\d+)\}.*\n?)");
 
-    if (std::regex_match ("{0}{100}{y:b}bold text\n{144}{299}{s:12}12 Font used\n{280}{350}{c:$0000FF}Hello!\n{1000}{1050}Multi|Line|Text\n", whole_pattern ))
+    if (std::regex_match ("{10}{250}TEXT\n{260}{300}NEWLINE\n", whole_pattern ))
         std::cout << "ORIGIN matched\n";
-    if (std::regex_match ("{0}{250}TEXT\n", line_patterd ))
-        std::cout << "string literal matched\n";
+
 
     return 0;
 }
