@@ -7,20 +7,47 @@
 
 #include <iostream>
 #include <regex>
+#include <exception>
 namespace moviesubs{
 
 
+    class SubtitlesException: public std::invalid_argument{
+        SubtitlesException (int line_numb, std::string content);
 
-    class NegativeFrameAfterShift{
+    };
+
+    class NegativeFrameAfterShift: public SubtitlesException{
     public:
 
     };
 
-    class SubtitleEndBeforeStart{
+    class SubtitleEndBeforeStart: public SubtitlesException{
     public:
+        SubtitleEndBeforeStart (int line_numb, std::string content){
+            line_numb_=line_numb;
+        }
+        int LineAt(){}
+
+    private:
+        int line_numb_;
+        std::string content_;
+
+
     };
 
-    class InvalidSubtitleLineFormat {
+    class InvalidSubtitleLineFormat: public SubtitlesException{
+    public:
+        InvalidSubtitleLineFormat (int line_numb, std::string content);
+
+
+    };
+
+    class OutOfOrderFrames : public SubtitlesException{
+    public:
+
+
+    };
+    class MissingTimeSpecification : public SubtitlesException{
     public:
 
 
@@ -34,25 +61,14 @@ namespace moviesubs{
         virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out)=0;
 
 
-    private:
-        std::regex whole_pattern;
-        std::regex line_pattern;
-        int start;
-        int stop;
-
     };
 
     class MicroDvdSubtitles: public MovieSubtitles{
     public:
-        MicroDvdSubtitles(): whole_pattern{R"(((\{(\d+)\}\{(\d+)\}.+?(?=\\|$))(\\n)?)+)"}, line_pattern{R"(\{(\d+)\}\{(\d+)\}.+?(?=\\|$))"}, start(1), stop(2){}
+        MicroDvdSubtitles()= default;
 
         virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
 
-    private:
-        std::regex whole_pattern;
-        std::regex line_pattern;
-        int start;
-        int stop;
 
     };
 

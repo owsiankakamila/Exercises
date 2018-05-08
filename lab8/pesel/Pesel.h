@@ -49,13 +49,13 @@ namespace academia{
                 throw InvalidPeselLength();
             }
 
-            int checksum = 1*pesel[0] + 3×pesel[1] + 7×pesel[2] + 9×pesel[3] + 1×pesel[4] + 3×pesel[5] + 7×pesel[6] + 9×pesel[7] + 1×pesel[8] + 3×pesel[9] + 1×pesel[10];
+            int checksum = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9] + 1*pesel[10];
 
             if ((checksum%10)!=0){
                 throw InvalidPeselChecksum(pesel);
             }
 
-            std::regex pattern R"(\d{11})";
+            std::regex pattern (R"(\d{11})");
 
             if(!std::regex_match(pesel,pattern)){
                 throw InvalidPeselCharacter();
