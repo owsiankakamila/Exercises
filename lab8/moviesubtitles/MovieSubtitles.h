@@ -35,7 +35,7 @@ namespace moviesubs{
 
     class InvalidSubtitleLineFormat: public SubtitlesException{
     public:
-        explicit InvalidSubtitleLineFormat ( int line_numb):SubtitlesException(" InvalidSubtitleLineFormat" , line_numb){}
+        explicit InvalidSubtitleLineFormat ( std::string subtitle,int line_numb):SubtitlesException(subtitle, line_numb){}
 
 
 
@@ -43,10 +43,11 @@ namespace moviesubs{
 
     class OutOfOrderFrames : public SubtitlesException{
     public:
+        OutOfOrderFrames (int line_numb):SubtitlesException("OutOfOrderFrames", line_numb){}
 
 
     };
-    class MissingTimeSpecification : public SubtitlesException{
+    class MissingTimeSpecification : public SubtitlesException{ //testy przejdą bez tego
     public:
 
 
@@ -75,6 +76,7 @@ namespace moviesubs{
     public:
 
         virtual void ShiftAllSubtitlesBy (int mili, int framerate, std::stringstream *in, std::stringstream * out) override ;
+        std::string FormatMiliSec(int milisec);
     };
 
 
