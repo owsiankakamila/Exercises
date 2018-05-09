@@ -1,5 +1,4 @@
 //
-// Created by mwypych on 30.04.17.
 //
 
 #include <gtest/gtest.h>

@@ -14,14 +14,16 @@ namespace academia{
 
     };
 
-    class InvalidPeselChecksum{
-        InvalidPeselChecksum(std::string);
+    class InvalidPeselChecksum: public  std::invalid_argument{
+        InvalidPeselChecksum(std::string str):std::invalid_argument(str){}
 
     };
-    class InvalidPeselLength{
+    class InvalidPeselLength: public  std::invalid_argument{
+            InvalidPeselLength(std::string str):std::invalid_argument(str){}
 
     };
-    class InvalidPeselCharacter{
+    class InvalidPeselCharacter:public  std::invalid_argument{
+        InvalidPeselCharacter(std::string str):std::invalid_argument(str){}
 
     };
 
@@ -29,14 +31,14 @@ namespace academia{
     class Pesel {
     public:
         Pesel(std::string pesel){
-            try{
-                validatePESEL(pesel);
-            }catch{
-                InvalidPeselChecksum();
-            }
-            catch{
+           // try{
+              //  validatePESEL(pesel);
+         //   }catch{
+          //      InvalidPeselChecksum();
+          //  }
+          //  catch{
 
-            }
+        //}
 
 
 
@@ -46,19 +48,19 @@ namespace academia{
         void validatePESEL(std::string pesel) const {
 
             if (pesel.size() != 11){
-                throw InvalidPeselLength();
+                //throw InvalidPeselLength();
             }
 
-            int checksum = 1*pesel[0] + 3×pesel[1] + 7×pesel[2] + 9×pesel[3] + 1×pesel[4] + 3×pesel[5] + 7×pesel[6] + 9×pesel[7] + 1×pesel[8] + 3×pesel[9] + 1×pesel[10];
+            int checksum = 1*pesel[0] + 3*pesel[1] + 7*pesel[2] + 9*pesel[3] + 1*pesel[4] + 3*pesel[5] + 7*pesel[6] + 9*pesel[7] + 1*pesel[8] + 3*pesel[9] + 1*pesel[10];
 
             if ((checksum%10)!=0){
-                throw InvalidPeselChecksum(pesel);
+               // throw InvalidPeselChecksum(pesel);
             }
 
-            std::regex pattern R"(\d{11})";
+            std::regex pattern (R"(\d{11})");
 
             if(!std::regex_match(pesel,pattern)){
-                throw InvalidPeselCharacter();
+                //throw InvalidPeselCharacter();
             }
 
 
