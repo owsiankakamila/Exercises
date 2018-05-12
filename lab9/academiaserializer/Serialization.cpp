@@ -33,6 +33,11 @@ void academia::Building::Serialize(academia::Serializer *c) const{
 }
 
 
+
+// ------**  JSON SERIALIZER **-------
+
+
+
 void academia::JsonSerializer::IntegerField(const std::string &field_name, int value) {
     this->EnterComma();
     out_<<"\""+ field_name +"\": "+std::to_string(value);
@@ -52,7 +57,7 @@ void academia::JsonSerializer::StringField(const std::string &field_name, const 
 
 void academia::JsonSerializer::BooleanField(const std::string &field_name, bool value) {
     this->EnterComma();
-    out_<<"\""+ field_name +"\": \""+std::to_string(value) +"\""; //!!!!!!!!!!!!!!!!!!
+    out_<<"\""+ field_name +"\": \""+std::to_string(value) +"\""; //tooooo BOOOOOOOL
 }
 
 void academia::JsonSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value) {
@@ -65,13 +70,16 @@ void academia::JsonSerializer::ArrayField(const std::string &field_name,
     out_<<"\""+ field_name +"\": ";
     out_<<"[";
     bool is_first_serializable = true;
+    
     for(auto i:value){
+        //[EnterComa]
         if(is_first_serializable){
             is_first_serializable= false;
         } else {
             out_<<", ";
         }
-        
+        //[/EnterComa]
+
         is_first_=true;
         i.get().Serialize(this);
     }
@@ -87,7 +95,58 @@ void academia::JsonSerializer::Header(const std::string &object_name) {
 }
 
 void academia::JsonSerializer::Footer(const std::string &object_name) {
-    //usuń 2 ostatnie znaki?
+
     out_<<"}";
+
+}
+
+
+// ------**  XML SERIALIZER  **-------
+
+void academia::XmlSerializer::IntegerField(const std::string &field_name, int value) {
+    out_<<"<"+field_name+">";
+    out_<<std::to_string(value);
+    out_<<"<\\"+field_name+">";
+
+}
+
+void academia::XmlSerializer::DoubleField(const std::string &field_name, double value) {
+    out_<<"<"+field_name+">";
+    out_<<std::to_string(value);
+    out_<<"<\\"+field_name+">";
+}
+
+void academia::XmlSerializer::StringField(const std::string &field_name, const std::string &value) {
+    out_<<"<"+field_name+">";
+    out_<<value;
+    out_<<"<\\"+field_name+">";
+}
+
+void academia::XmlSerializer::BooleanField(const std::string &field_name, bool value) {
+    out_<<"<"+field_name+">";
+    out_<<std::to_string(value);
+    out_<<"<\\"+field_name+">";
+}
+
+void academia::XmlSerializer::SerializableField(const std::string &field_name, const academia::Serializable &value) {
+    value.Serialize(this);
+}
+
+void academia::XmlSerializer::ArrayField(const std::string &field_name,
+                                         const std::vector<std::reference_wrapper<const academia::Serializable>> &value) {
+    out_<<"<"+field_name+">";
+    for(auto i:value){
+        i.get().Serialize(this);
+    }
+    out_<<"<\\"+field_name+">";
+
+}
+
+void academia::XmlSerializer::Header(const std::string &object_name) {
+    out_<<"<"+object_name+">";
+}
+
+void academia::XmlSerializer::Footer(const std::string &object_name) {
+    out_<<"<\\"+object_name+">";
 
 }
