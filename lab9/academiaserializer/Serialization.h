@@ -8,6 +8,8 @@
 #include <ostream>
 #include <vector>
 #include <functional>
+#include <experimental/optional>
+#include <initializer_list>
 
 namespace academia {
 
@@ -71,7 +73,7 @@ namespace academia {
 
     private:
         bool is_first_=true;
-        
+
     };
 
 
@@ -125,15 +127,37 @@ namespace academia {
     public:
 
 
-        Building(int id, const std::string &name, const std::vector<std::reference_wrapper<const academia::Serializable>> &rooms ):id_(id), name_(name), rooms_(rooms){}
+        Building(int id, const std::string &name,  std::vector<Room> rooms ):id_(id), name_(name), rooms_(rooms){}
         void Serialize(Serializer *c) const override;
+        int Id()const;
+
+
+        std::vector<std::reference_wrapper<const academia::Serializable>> ReferenceVectorFromRooms() const;
+
 
     private:
         int id_;
         std::string name_;
-        std::vector<std::reference_wrapper<const academia::Serializable>> rooms_;
+        std::vector<academia::Room> rooms_;
     };
 
+
+
+    // -------** BUILDING REPOSITORY **--------
+
+    class BuildingRepository {
+    public:
+        BuildingRepository(const std::initializer_list<Building> &elements): buildings_(elements){}; //inicjalizacja listą! repo { Building {}, ..  , .. }
+        void StoreAll(Serializer *c) const;
+        void Add (const Building & building);
+        std::experimental::optional<Building> operator[](int id) const;
+
+        std::vector<std::reference_wrapper<const academia::Serializable>> ReferenceVectorFromBuildings() const;
+
+    private:
+        std::vector<Building> buildings_;
+
+    };
 
 
 
