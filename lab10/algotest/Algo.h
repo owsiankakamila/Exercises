@@ -5,7 +5,7 @@
 #ifndef JIMP_EXERCISES_ALGO_H
 #define JIMP_EXERCISES_ALGO_H
 #include <vector>
-
+#include <set>
 #include <map>
 
 namespace algo{
@@ -16,9 +16,9 @@ namespace algo{
     bool Contains(const std::vector<int> &v, int element); //check if it contains element
 
     //TEST 3
-    void InitializeWith(int initial_value, std::vector<int> *v);
-    std::vector<int> InitializedVectorOfLength(int length, int initial_value);
-    std::vector<std::string> MapToString(const std::vector<double> &v);
+    void InitializeWith(int initial_value, std::vector<int> *v); // replace every element in v with initial_value
+    std::vector<int> InitializedVectorOfLength(int length, int initial_value); //create vector of length with initial_value
+    std::vector<std::string> MapToString(const std::vector<double> &v); //change double to string
 
     //TEST 4
     bool ContainsKey(const std::map<std::string, int> &v, const std::string &key);
