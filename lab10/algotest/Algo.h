@@ -7,7 +7,7 @@
 #include <vector>
 #include <set>
 #include <map>
-
+// map w kazdym innym jezyku w c+++ tranform
 namespace algo{
     //TEST 1
     void CopyInto(const std::vector<int> &v, int n_elements, std::vector<int> *out);//copy n elements from out to v
@@ -21,7 +21,7 @@ namespace algo{
     std::vector<std::string> MapToString(const std::vector<double> &v); //change double to string
 
     //TEST 4
-    bool ContainsKey(const std::map<std::string, int> &v, const std::string &key);
+    bool ContainsKey(const std::map<std::string, int> &v, const std::string &key); //do lambdy tefai para string int; set nie ma pushback wiec backinsertern nie dziala ale dziala inserter(set,iterator do poczatku)
     bool ContainsValue(const std::map<std::string, int> &v, int value);
     std::set<std::string> Keys(const std::map<std::string, int> &m);
     std::vector<int> Values(const std::map<std::string, int> &m);
@@ -36,7 +36,7 @@ namespace algo{
     void SortBySecondInPlace(std::vector<std::pair<int,int>> *v);
     void SortByThirdInPlace(std::vector<std::tuple<int,int,int>> *v);
 
-    std::string Join(const std::string &joiner, const std::vector<double> &v);
+    std::string Join(const std::string &joiner, const std::vector<double> &v); //kazdy element przecinasz joinere,
     int Sum(const std::vector<int> &v);
     int Product(const std::vector<int> &v);
 
