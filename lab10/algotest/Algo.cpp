@@ -5,13 +5,16 @@
 #include "Algo.h"
 
 #include <vector>
-#include <utility>
+#include <algorithm>
+#include <iterator>
 
-
+//TEST 1
 void algo::CopyInto(const std::vector<int> &v, int n_elements, std::vector<int> *out){
     std::copy_n(v.begin(),n_elements,std::back_inserter(*out));
 }
 
+
+//TEST 2
 struct EqualTo
 {
     const int d;
@@ -23,5 +26,10 @@ bool algo::Contains(const std::vector<int> &v, int element){
     return std::any_of(v.begin(),v.end(),EqualTo(element));
 
 }
+//TEST 3
 
 
+
+
+
+//TEST 4
