@@ -9,9 +9,9 @@
 #include <iterator>
 
 namespace algo{
-    void CopyInto(const std::vector<int> &v, int n_elements, std::vector<int> *out){//copy n elements from out to v
-        std::copy_n(v.begin(),n_elements,std::back_inserter(*out));
-    }
+    void CopyInto(const std::vector<int> &v, int n_elements, std::vector<int> *out);//copy n elements from out to v
+    bool Contains(const std::vector<int> &v, int element); //check if it contains element
+
 }
 
 
