@@ -7,7 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <iterator>
-#include <string>
+#include <numeric>
 #include <sstream>
 
 //TEST 1
@@ -65,8 +65,10 @@ std::set<std::string> algo::Keys(const std::map<std::string, int> &m){
 
 
 //TEST 5
-std::map<std::string, int> DivisableBy(const std::map<std::string, int> &m,int divisor){
-
+std::vector<int> algo::DivisableBy(const std::vector<int> &m,int divisor){
+    std::vector<int> divisabled;
+    std::copy_if(m.begin(), m.begin(), std::back_inserter(divisabled), [divisor](auto i) {return i%divisor ==0;});
+    return divisabled;
 }
 
 
