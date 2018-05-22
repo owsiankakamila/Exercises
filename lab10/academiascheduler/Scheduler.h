@@ -8,6 +8,7 @@
 #include <vector>
 #include <set>
 #include <map>
+#include <exception>
 namespace academia{
 
     class SchedulingItem{ // item from the schedule
@@ -53,22 +54,33 @@ namespace academia{
 
     private:
         std::vector <SchedulingItem> schedule_;
-
-
-
     };
 
 
-    class Scheduler{
+    class Scheduler{ // czysto abstrakcyjny???
     public:
-        Schedule PrepareNewSchedule(const std::vector<int> &rooms,
-                                    const std::map<int, std::vector<int>> &teacher_courses_assignment,
-                                    const std::map<int, std::set<int>> &courses_of_year,
+        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, //rooms available
+                                    const std::map<int, std::vector<int>> &teacher_courses_assignment, //teacher,list of courses
+                                    const std::map<int, std::set<int>> &courses_of_year, //year list of courses
+                                    int n_time_slots)=0; // 1-ntimeslots
+
+    };
+
+    class NoViableSolutionFound: public std::invalid_argument{
+    public:
+
+        NoViableSolutionFound (std::string subtitle):invalid_argument(subtitle){}
+
+    };
+
+    class GreedyScheduler: public Scheduler{
+    public:
+        virtual Schedule PrepareNewSchedule(const std::vector<int> &rooms, //rooms available
+                                    const std::map<int, std::vector<int>> &teacher_courses_assignment, //teacher,list of courses
+                                    const std::map<int, std::set<int>> &courses_of_year, //year list of courses
                                     int n_time_slots);
 
     };
-
-    //GreedyScheduler //algorithm
 }
 
 
