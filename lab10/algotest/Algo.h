@@ -27,7 +27,7 @@ namespace algo{
     std::vector<int> Values(const std::map<std::string, int> &m);
 
     //TEST 5
-    std::map<std::string, int> DivisableBy(const std::map<std::string, int> &m,int divisor);
+     std::vector<int> DivisableBy(const std::vector<int> &m,int divisor);
 
     //*******OTHER*******
     void SortInPlace(std::vector<int> *v);
