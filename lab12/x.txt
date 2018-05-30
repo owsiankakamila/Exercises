@@ -1,0 +1,28 @@
+definicje tez w pliku .h
+
+Container <typ>zmienna;
+inline (wsakzokwa jakby) + gdy krotkie metody (definicje w h)
+
+
+template U T
+{da sie zwaizac t  z u
+vecotorowi mozna zmienic allokacje pamieci
+map - definiowanie porownywacza}
+
+template Id T
+class Repo{
+template Query
+
+make <t> FindbyGuery (Qurey)
+}
+
+
+mian:
+Repo <Teacher,unsigned> r1
+Repo <student,StudentId> r2
+
+funckaj przymujaca inna funkcje"
+r1.findbyquery([] (auto teacher) {return teacher.getname("M"})
+
+
+
