@@ -36,15 +36,18 @@ namespace tree {
             root_ = std::make_unique<Node<T>>(key);
         } // tree with contructor which set root imidiately
 
-        size_t Size() { return size_; }
+        size_t Size()const { return size_; }
 
-        size_t Depth() { return depth_; }
+        size_t Depth()const { return depth_; }
 
         T Value() { return root_->key_; }
         //Root ??
 
         void Insert(const T &key);
         bool Find(const T &key);
+        Node<T> * Root()const{
+            return root_.get();
+        }
 
 
     private:
